@@ -1,11 +1,9 @@
 package com.josecuentas.androidintents.features.main.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.josecuentas.androidintents.R
+import com.josecuentas.androidintents.databinding.RowUserBinding
 import com.josecuentas.androidintents.features.main.model.UserModel
 
 class UserAdapter(private val onClick: (UserModel) -> Unit) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
@@ -13,7 +11,7 @@ class UserAdapter(private val onClick: (UserModel) -> Unit) : RecyclerView.Adapt
     var users: List<UserModel> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
-        return UserViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_user, parent, false))
+        return UserViewHolder(RowUserBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
@@ -24,16 +22,12 @@ class UserAdapter(private val onClick: (UserModel) -> Unit) : RecyclerView.Adapt
         return users.count()
     }
 
-    inner class UserViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
-
-        lateinit var textName : TextView
+    inner class UserViewHolder(val binding: RowUserBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(user: UserModel) {
-            textName = root.findViewById(R.id.text_name)
+            binding.textName.text = user.name
 
-            textName.text = user.name
-
-            root.setOnClickListener {
+            binding.root.setOnClickListener {
                 onClick(user)
             }
         }

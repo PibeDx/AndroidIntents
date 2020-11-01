@@ -3,32 +3,28 @@ package com.josecuentas.androidintents.features.main.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.josecuentas.androidintents.R
+import com.josecuentas.androidintents.databinding.ActivityMainBinding
 import com.josecuentas.androidintents.features.main.adapter.UserAdapter
 import com.josecuentas.androidintents.features.main.model.UserModel
 import com.josecuentas.androidintents.features.userdetail.view.UserDetailActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var recyclerUser: RecyclerView
     private lateinit var userAdapter: UserAdapter
+
+    lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setupUi()
     }
 
     private fun setupUi() {
-        injectView()
         setupAdapter()
         setupRecycler()
-    }
-
-    private fun injectView() {
-        recyclerUser = findViewById(R.id.recycler_user)
     }
 
     private fun setupAdapter() {
@@ -45,8 +41,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecycler() {
-        recyclerUser.layoutManager = LinearLayoutManager(baseContext)
-        recyclerUser.adapter = userAdapter
+        binding.recyclerUser.layoutManager = LinearLayoutManager(baseContext)
+        binding.recyclerUser.adapter = userAdapter
     }
 
     private fun getDummyUsers(): List<UserModel> {
