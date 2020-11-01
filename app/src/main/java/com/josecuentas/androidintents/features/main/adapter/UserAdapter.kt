@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.josecuentas.androidintents.R
 import com.josecuentas.androidintents.features.main.model.UserModel
 
-class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+class UserAdapter(private val onClick: (UserModel) -> Unit) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     var users: List<UserModel> = listOf()
 
@@ -35,7 +34,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
             textName.text = user.name
 
             root.setOnClickListener {
-                Toast.makeText(root.context, user.name, Toast.LENGTH_SHORT).show()
+                onClick(user)
             }
         }
     }

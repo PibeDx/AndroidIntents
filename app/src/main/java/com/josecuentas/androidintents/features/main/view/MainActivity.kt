@@ -1,12 +1,13 @@
 package com.josecuentas.androidintents.features.main.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.josecuentas.androidintents.R
 import com.josecuentas.androidintents.features.main.adapter.UserAdapter
 import com.josecuentas.androidintents.features.main.model.UserModel
+import com.josecuentas.androidintents.features.userdetail.view.UserDetailActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,7 +32,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupAdapter() {
-        userAdapter = UserAdapter()
+        userAdapter = UserAdapter(
+            onClick = { user ->
+                /*val intent = Intent(baseContext, UserDetailActivity::class.java).apply {
+                    putExtra(UserModel.BUNDLE, user)
+                }
+                startActivity(intent)*/
+                startActivity(UserDetailActivity.getOpenIntent(baseContext, user))
+            }
+        )
         userAdapter.users = getDummyUsers()
     }
 
